@@ -22,10 +22,10 @@
     <b-alert
       :show="dismissCountDown"
       dismissible
-      variant="success"
+      :variant="alertVariant"
       @dismissed="dismissCountDown=0"
     >
-      <span>Money Is refunded</span>
+      <span>{{ alertMessage }}</span>
     </b-alert>
     <div class="vending-machine-products row"
       v-if="filteredProducts.length > 0 && errorMsg === ''"
@@ -56,11 +56,11 @@
         Do you want to continue to buy?
     </template>
       <div class="d-block text-center">
-        <span>'Yes' to continue or click 'Cancel' to refund</span>
+        <span>Click 'Yes' to continue or click 'Cancel' to refund</span>
       </div>
       <b-button class="mt-3"
         block
-        @click="cancelTranscation()"
+        @click="cancelPurchase()"
       >
         Cancel
       </b-button>
@@ -87,7 +87,9 @@ export default {
       moneyInMachine: 0,
       dismissSecs: 5,
       dismissCountDown: 0,
-      productSelected: {}
+      productSelected: {},
+      alertMessage: '',
+      alertVariant: 'success'
     }
   },
   created () {
@@ -115,10 +117,15 @@ export default {
       this.moneyInMachine = this.customerMoney
       this.customerMoney = 0
     },
+    cancelPurchase () {
+      this.alertMessage = 'You have cancelled purchase. Your Money has been refunded.'
+      this.cancelTranscation()
+    },
     cancelTranscation () {
       this.moneyInMachine = 0
       this.productSelected = {}
       this.$bvModal.hide('bv-modal-example')
+      this.alertVariant = 'danger'
       this.showAlert()
     },
     showAlert () {
@@ -129,13 +136,21 @@ export default {
         try {
           this.productSelected.quantity -= 1
           await axios.patch(`http://localhost:3000/api/products/update/${this.productSelected.id}`, this.productSelected)
+          this.alertVariant = 'success'
+          this.alertMessage = 'Transaction completed successfully. Please collect your product. Thank you.'
+          if (this.moneyInMachine > this.productSelected.price) {
+            this.alertMessage += ` Please collect ${this.moneyInMachine - this.productSelected.price} Rs change.`
+          }
           this.moneyInMachine = 0
           this.productSelected = {}
           this.$bvModal.hide('bv-modal-example')
+          this.showAlert()
         } catch (error) {
+          this.alertMessage = 'Transaction has been cancelled because of some error. Your Money has been refunded.'
           this.cancelTranscation()
         }
       } else {
+        this.alertMessage = 'Transaction has been cancelled because of insufficient funds. Your Money has been refunded.'
         this.cancelTranscation()
       }
     }
