@@ -1,7 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 
-const feedRoutes = require("./server/routes/feed");
 const productsRoutes = require("./server/routes/products");
 
 const app = express();
@@ -22,7 +21,6 @@ app.use((req, res, next) => {
 app.use(express.static("dist"));
 
 //serve out the api
-app.use("/api/feed", feedRoutes);
 app.use("/api/products", productsRoutes);
 
 app.listen(3000);

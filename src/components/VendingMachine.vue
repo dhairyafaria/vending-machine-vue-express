@@ -124,9 +124,17 @@ export default {
     showAlert () {
       this.dismissCountDown = this.dismissSecs
     },
-    purcharse () {
+    async purcharse () {
       if (this.moneyInMachine >= this.productSelected.price) {
-        console.log('purchase done')
+        try {
+          this.productSelected.quantity -= 1
+          await axios.patch(`http://localhost:3000/api/products/update/${this.productSelected.id}`, this.productSelected)
+          this.moneyInMachine = 0
+          this.productSelected = {}
+          this.$bvModal.hide('bv-modal-example')
+        } catch (error) {
+          this.cancelTranscation()
+        }
       } else {
         this.cancelTranscation()
       }
