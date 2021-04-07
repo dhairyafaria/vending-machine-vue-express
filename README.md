@@ -1,33 +1,42 @@
-# vending-machine
+# vending-machine-vue-express
 
-> Simple vending machine sample which has Vue Js in frontend and Node + Express Js in Backend
+It is a simple vending machine example which uses Vue js in front end & Node js + Express js in backend. Also it uses sqlite3 for database with knex library as a bridge between express and sqlite3.
 
-## Build Setup
-
-``` bash
-# install dependencies
+## Project setup
+```
 npm install
-
-# run server and frontend simultaneously
-npm run start
-
-# run server
-npm run start-server
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run all tests
-npm test
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+
+### run server and frontend simultaneously
+```
+npm run start
+```
+
+### run server
+```
+npm run start-server
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Run your unit tests
+```
+npm run test:unit
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).

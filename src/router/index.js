@@ -1,16 +1,21 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import VendingMachine from '@/components/VendingMachine'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import VendingMachineView from '../views/VendingMachineView.vue';
 
-Vue.use(Router)
+Vue.use(VueRouter);
 
-export default new Router({
+const routes = [
+  {
+    path: '/',
+    name: 'VendingMachine',
+    component: VendingMachineView,
+  },
+];
+
+const router = new VueRouter({
   mode: 'history',
-  routes: [
-    {
-      path: '/',
-      name: 'VendingMachine',
-      component: VendingMachine
-    }
-  ]
-})
+  base: process.env.BASE_URL,
+  routes,
+});
+
+export default router;
