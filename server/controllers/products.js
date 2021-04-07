@@ -6,8 +6,20 @@ const getAllProducts = async (req, res) => {
 };
 
 const updateProduct = async (req, res) => {
-  const id = await db.updateProduct(req.params.id, req.body);
-  res.status(200).json({ id });
+  const product = req.body;
+  const id = await db.updateProduct(req.params.id, product);
+  if (id) {
+    const purchase = {
+      productId: id,
+      price: product.price,
+      quantity: 1,
+      date: new Date().toUTCString(),
+    };
+    const purchaseId = await db.addPurchase(purchase);
+    res.status(200).json({ purchaseId });
+  } else {
+    res.status(500).json({ error: 'There is error in purchase.' });
+  }
 };
 
 module.exports = {

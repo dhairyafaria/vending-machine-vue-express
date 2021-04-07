@@ -16,7 +16,8 @@ Backend endpoint are:
     example product: {id: 1, name: 'apple', price: 10, quantity: 10}
 
 
-You can use sqlite DB browser to Add/update/delete/select on database.
+You can use sqlite DB browser to Add/update/delete/select on database. Also you can check all purchases in database.
+
 ## Project setup
 ```
 npm install
