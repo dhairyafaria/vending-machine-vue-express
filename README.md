@@ -2,6 +2,21 @@
 
 It is a simple vending machine example which uses Vue js in front end & Node js + Express js in backend. Also it uses sqlite3 for database with knex library as a bridge between express and sqlite3.
 
+You can check the test coverage by running unit test case once and the open "coverage\Icove-report\index.html" file.
+
+Frontend is running on http://localhost:8080/
+Backend is running on http://localhost:3000/
+Backend endpoint are:
+1. Get All products  
+    Get: http://localhost:3000/api/products
+
+2. Update Product
+    Patch: http://localhost:3000/api/products/update/:id
+    data: product object in json format
+    example product: {id: 1, name: 'apple', price: 10, quantity: 10}
+
+
+You can use sqlite DB browser to Add/update/delete/select on database.
 ## Project setup
 ```
 npm install
@@ -28,10 +43,17 @@ npm run start-server
 npm run build
 ```
 
-### Run your unit tests
+### Run your unit tests and coverage too
 ```
 npm run test:unit
 ```
+
+
+### Run your unit tests with debug mode with chrome inspect
+```
+npm run test:debug-brk
+```
+
 
 ### Lints and fixes files
 ```
